@@ -7,24 +7,41 @@ public class Character {
     private static int nextid=1;
     private String name;
     private String DNDClass;
+    private int level;
+    private int exp;
 
     public Character(){
         this.id = nextid++;
+        this.level = 1;
+        this.exp = 0;
     }
 
     public Character(String name) {
         this();
+        if(name.contains("@")){throw new IllegalArgumentException("Name can not be contain @");}
         this.name = name;
     }
 
     public Character(String name, String DNDClass) {
-        this();
-        this.name = name;
+        this(name);
         this.DNDClass = DNDClass;
     }
 
-    public int getId() {
-        return id;
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        if(exp<0){throw new IllegalArgumentException("Experience can not be negative!");}
+        this.exp = exp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public String getDNDClass() {
@@ -40,7 +57,12 @@ public class Character {
     }
 
     public void setName(String name) {
+        if(name.contains("@")){throw new IllegalArgumentException("Name can not be contain @");}
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -49,17 +71,19 @@ public class Character {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", DNDClass='" + DNDClass + '\'' +
+                ", level=" + level +
+                ", exp=" + exp +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Character character)) return false;
-        return id == character.id && Objects.equals(name, character.name) && Objects.equals(DNDClass, character.DNDClass);
+        return id == character.id && level == character.level && exp == character.exp && Objects.equals(name, character.name) && Objects.equals(DNDClass, character.DNDClass);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, DNDClass);
+        return Objects.hash(id, name, DNDClass, level, exp);
     }
 }
