@@ -33,7 +33,7 @@ public class Character {
 
     public void setExp(int exp) {
         if(exp<0){throw new IllegalArgumentException("Experience can not be negative!");}
-        this.exp = exp;
+        this.exp += exp;
     }
 
     public int getLevel() {
