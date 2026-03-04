@@ -9,22 +9,27 @@ public class CharacterTest {
     @Test
     void succesfullCharacterCreationTest(){
         Character testCharacterEmpty = new Character();
+        Character clonedCharacter =testCharacterEmpty;
         Character testCharacterNamed = new Character("Bilbo");
         Character testCharacterDefined = new Character("Aragorn","Ranger");
 
-        assertEquals(1,testCharacterEmpty.getId());
-        assertEquals(2,testCharacterNamed.getId());
-        assertEquals(3,testCharacterDefined.getId());
+        assertEquals(100,testCharacterEmpty.getId());
+        assertEquals(101,testCharacterNamed.getId());
+        assertEquals(102,testCharacterDefined.getId());
 
         assertEquals(1,testCharacterEmpty.getLevel());
         assertEquals(1,testCharacterNamed.getLevel());
         assertEquals(1,testCharacterDefined.getLevel());
+
+        assertEquals(clonedCharacter,testCharacterEmpty);
 
         assertNull(testCharacterEmpty.getName());
         assertNotNull(testCharacterNamed.getName());
 
         assertNotEquals(0,testCharacterEmpty.getLevel());
         assertNotEquals(0,testCharacterNamed.getLevel());
+
+        assertTrue(testCharacterEmpty.getId()>0);
 
         testCharacterEmpty.setName("Frodo");
         assertEquals("Frodo",testCharacterEmpty.getName());
@@ -33,7 +38,9 @@ public class CharacterTest {
     @Test
     void setIllegalExpTest(){
         Character TNO = new Character();
-        assertThrows(IllegalArgumentException.class,()->{TNO.setExp(-1);});
+        IllegalArgumentException exception=assertThrows(IllegalArgumentException.class,()->{TNO.setExp(-1);});
+        assertEquals("Experience can not be negative!",exception.getMessage());
+        assertDoesNotThrow(()->{TNO.setExp(5);});
     }
 
     @Test

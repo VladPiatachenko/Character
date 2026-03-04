@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Character {
     private int id;
-    private static int nextid=1;
+    private static int nextid=100;
     private String name;
     private String DNDClass;
     private int level;
