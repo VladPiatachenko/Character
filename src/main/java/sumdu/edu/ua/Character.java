@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Character {
     private int id;
-    private static int nextid=1;
+    private static int nextid=100;
     private String name;
     private String DNDClass;
     private int level;
@@ -33,7 +33,7 @@ public class Character {
 
     public void setExp(int exp) {
         if(exp<0){throw new IllegalArgumentException("Experience can not be negative!");}
-        this.exp = exp;
+        this.exp += exp;
     }
 
     public int getLevel() {
