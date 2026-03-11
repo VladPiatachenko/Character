@@ -1,6 +1,7 @@
 package sumdu.edu.ua;
 
 import org.junit.jupiter.api.Test;
+import sumdu.edu.ua.dnd.Character;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,10 +9,10 @@ public class CharacterTest {
 
     @Test
     void succesfullCharacterCreationTest(){
-        Character testCharacterEmpty = new Character();
-        Character clonedCharacter =testCharacterEmpty;
-        Character testCharacterNamed = new Character("Bilbo");
-        Character testCharacterDefined = new Character("Aragorn","Ranger");
+        sumdu.edu.ua.dnd.Character testCharacterEmpty = new sumdu.edu.ua.dnd.Character();
+        sumdu.edu.ua.dnd.Character clonedCharacter =testCharacterEmpty;
+        sumdu.edu.ua.dnd.Character testCharacterNamed = new sumdu.edu.ua.dnd.Character("Bilbo");
+        sumdu.edu.ua.dnd.Character testCharacterDefined = new sumdu.edu.ua.dnd.Character("Aragorn","Ranger");
 
         assertEquals(100,testCharacterEmpty.getId());
         assertEquals(101,testCharacterNamed.getId());
@@ -37,7 +38,7 @@ public class CharacterTest {
 
     @Test
     void setIllegalExpTest(){
-        Character TNO = new Character();
+        sumdu.edu.ua.dnd.Character TNO = new sumdu.edu.ua.dnd.Character();
         IllegalArgumentException exception=assertThrows(IllegalArgumentException.class,()->{TNO.setExp(-1);});
         assertEquals("Experience can not be negative!",exception.getMessage());
         assertDoesNotThrow(()->{TNO.setExp(5);});
@@ -45,7 +46,7 @@ public class CharacterTest {
 
     @Test
     void setIllegalNameTest(){
-        Character TNO = new Character();
+        sumdu.edu.ua.dnd.Character TNO = new sumdu.edu.ua.dnd.Character();
         assertThrows(IllegalArgumentException.class,()->{TNO.setName("bronzeghoste@gmail.com");});
         assertThrows(IllegalArgumentException.class,()->{new Character("bronzeghoste@gmail.com");});
 

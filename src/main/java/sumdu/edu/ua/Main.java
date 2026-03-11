@@ -1,25 +1,23 @@
 package sumdu.edu.ua;
 
+import sumdu.edu.ua.dnd.Character;
+import sumdu.edu.ua.dnd.DnDClass;
+import sumdu.edu.ua.dnd.Party;
+import sumdu.edu.ua.dnd.Species;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Character hero = new Character();
-        System.out.println(hero.toString());
-        Character hero2 = new Character("Argorn@dunedain.me","Ranger");
-        System.out.println(hero2.toString());
+        Party brotherhoodOfRing=new Party();
 
-        Character[] arr= new Character[]{hero,hero2};
+        ArrayList<Character> party=new ArrayList<>();
+        party.add(new Character("Conan", DnDClass.BARBARIAN, Species.HUMAN));
+        party.add(new Character("Do Urden",DnDClass.ROGUE,Species.ELF));
+        party.add(new Character("Dumbledore",DnDClass.WIZARD,Species.HUMAN));
 
-        for(Character c: arr) {
-            System.out.println(c.toString());
-        }
-        ArrayList<Object> arr2= new ArrayList<>();
-        arr2.add(hero);
-        for(Object c: arr2) {
-            System.out.println(c.toString());
-        }
+        brotherhoodOfRing.setParty(party);
+        brotherhoodOfRing.printOut();
 
     }
 }

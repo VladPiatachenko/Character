@@ -1,12 +1,14 @@
-package sumdu.edu.ua;
+package sumdu.edu.ua.dnd;
 
 import java.util.Objects;
 
 public class Character {
     private int id;
     private static int nextid=100;
+    private static int amount=0;
     private String name;
-    private String DNDClass;
+    private DnDClass DNDClass;
+    private Species species;
     private int level;
     private int exp;
 
@@ -14,6 +16,7 @@ public class Character {
         this.id = nextid++;
         this.level = 1;
         this.exp = 0;
+        amount++;
     }
 
     public Character(String name) {
@@ -22,9 +25,16 @@ public class Character {
         this.name = name;
     }
 
-    public Character(String name, String DNDClass) {
+    public Character(String name, DnDClass DNDClass, Species species) {
         this(name);
         this.DNDClass = DNDClass;
+        this.species = species;
+    }
+
+    public Character(Character old){
+        this();
+        this.name=old.name;
+        this.DNDClass=old.DNDClass;
     }
 
     public int getExp() {
@@ -44,11 +54,11 @@ public class Character {
         this.level = level;
     }
 
-    public String getDNDClass() {
+    public DnDClass getDNDClass() {
         return DNDClass;
     }
 
-    public void setDNDClass(String DNDClass) {
+    public void setDNDClass(DnDClass DNDClass) {
         this.DNDClass = DNDClass;
     }
 
@@ -56,9 +66,17 @@ public class Character {
         return name;
     }
 
+    public static int getAmount() {
+        return amount;
+    }
+
     public void setName(String name) {
         if(name.contains("@")){throw new IllegalArgumentException("Name can not be contain @");}
         this.name = name;
+    }
+
+    public Species getSpecies() {
+        return species;
     }
 
     public int getId() {
@@ -70,7 +88,9 @@ public class Character {
         return "Character{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", DNDClass='" + DNDClass + '\'' +
+                ", DNDClass='" + DNDClass.getTitle() + '\'' +
+                ", DC='" + DNDClass.getStat() + '\'' +
+                ", HP='" + DNDClass.getDice() + '\'' +
                 ", level=" + level +
                 ", exp=" + exp +
                 '}';
