@@ -23,9 +23,4 @@ public class Taunt extends Character{
                 ", exp=" + exp +
                 '}';
     }
-
-    @Override
-    void perform() {
-
-    }
 }

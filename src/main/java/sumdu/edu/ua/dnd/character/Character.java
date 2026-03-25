@@ -112,5 +112,4 @@ public class Character {
         return Objects.hash(id, name, DNDClass, level, exp);
     }
 
-    abstract void perform();
 }
