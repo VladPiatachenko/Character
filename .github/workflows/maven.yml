@@ -49,6 +49,6 @@
             # Підтягнути останні зміни з origin (про всяк випадок)
             git fetch origin
             # Зробити fast-forward merge з deploy
-            git merge --ff-only origin/feature 
+            git merge --no-ff origin/feature 
             # Відправити оновлену render назад на GitHub
             git push origin master
