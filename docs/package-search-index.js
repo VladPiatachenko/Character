@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sumdu.edu.ua"},{"l":"sumdu.edu.ua.dnd"},{"l":"sumdu.edu.ua.dnd.character"},{"l":"sumdu.edu.ua.dnd.enums"}];updateSearchResults();
