@@ -1,7 +1,9 @@
 package sumdu.edu.ua;
 
 import org.junit.jupiter.api.Test;
-import sumdu.edu.ua.dnd.Character;
+import sumdu.edu.ua.dnd.character.Character;
+import sumdu.edu.ua.dnd.enums.DnDClass;
+import sumdu.edu.ua.dnd.enums.Species;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,10 +11,10 @@ public class CharacterTest {
 
     @Test
     void succesfullCharacterCreationTest(){
-        sumdu.edu.ua.dnd.Character testCharacterEmpty = new sumdu.edu.ua.dnd.Character();
-        sumdu.edu.ua.dnd.Character clonedCharacter =testCharacterEmpty;
-        sumdu.edu.ua.dnd.Character testCharacterNamed = new sumdu.edu.ua.dnd.Character("Bilbo");
-        sumdu.edu.ua.dnd.Character testCharacterDefined = new sumdu.edu.ua.dnd.Character("Aragorn","Ranger");
+        Character testCharacterEmpty = new Character();
+        Character clonedCharacter =testCharacterEmpty;
+        Character testCharacterNamed = new Character("Bilbo");
+        Character testCharacterDefined = new Character("Aragorn", DnDClass.BARD, Species.HUMAN);
 
         assertEquals(100,testCharacterEmpty.getId());
         assertEquals(101,testCharacterNamed.getId());
@@ -21,6 +23,8 @@ public class CharacterTest {
         assertEquals(1,testCharacterEmpty.getLevel());
         assertEquals(1,testCharacterNamed.getLevel());
         assertEquals(1,testCharacterDefined.getLevel());
+
+        assertEquals(DnDClass.BARD,testCharacterDefined.getDNDClass());
 
         assertEquals(clonedCharacter,testCharacterEmpty);
 
@@ -38,16 +42,17 @@ public class CharacterTest {
 
     @Test
     void setIllegalExpTest(){
-        sumdu.edu.ua.dnd.Character TNO = new sumdu.edu.ua.dnd.Character();
-        IllegalArgumentException exception=assertThrows(IllegalArgumentException.class,()->{TNO.setExp(-1);});
+        Character TNO = new Character();
+        IllegalArgumentException exception= assertThrows(IllegalArgumentException.class,()->{TNO.setExp(-1);});
         assertEquals("Experience can not be negative!",exception.getMessage());
         assertDoesNotThrow(()->{TNO.setExp(5);});
     }
 
     @Test
     void setIllegalNameTest(){
-        sumdu.edu.ua.dnd.Character TNO = new sumdu.edu.ua.dnd.Character();
-        assertThrows(IllegalArgumentException.class,()->{TNO.setName("bronzeghoste@gmail.com");});
+        Character TNO = new Character();
+        Exception exp=assertThrows(IllegalArgumentException.class,()->{TNO.setName("bronzeghoste@gmail.com");});
+        assertEquals("Name can not be contain @",exp.getMessage());
         assertThrows(IllegalArgumentException.class,()->{new Character("bronzeghoste@gmail.com");});
 
     }

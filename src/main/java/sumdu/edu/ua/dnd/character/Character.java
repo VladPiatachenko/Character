@@ -1,19 +1,22 @@
-package sumdu.edu.ua.dnd;
+package sumdu.edu.ua.dnd.character;
+
+import sumdu.edu.ua.dnd.enums.DnDClass;
+import sumdu.edu.ua.dnd.enums.Species;
 
 import java.util.Objects;
 
-public class Character {
-    private int id;
-    private static int nextid=100;
-    private static int amount=0;
-    private String name;
-    private DnDClass DNDClass;
-    private Species species;
-    private int level;
-    private int exp;
+public abstract class Character {
+    protected int id;
+    protected static int nextid=100;
+    protected static int amount=0;
+    protected String name;
+    protected DnDClass DNDClass;
+    protected Species species;
+    protected int level;
+    protected int exp;
 
     public Character(){
-        this.id = nextid++;
+        this.id = nextid;
         this.level = 1;
         this.exp = 0;
         amount++;
@@ -35,6 +38,7 @@ public class Character {
         this();
         this.name=old.name;
         this.DNDClass=old.DNDClass;
+        this.species = old.species;
     }
 
     public int getExp() {
@@ -98,6 +102,7 @@ public class Character {
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("on object level method");
         if (!(o instanceof Character character)) return false;
         return id == character.id && level == character.level && exp == character.exp && Objects.equals(name, character.name) && Objects.equals(DNDClass, character.DNDClass);
     }
@@ -106,4 +111,6 @@ public class Character {
     public int hashCode() {
         return Objects.hash(id, name, DNDClass, level, exp);
     }
+
+    abstract void perform();
 }
