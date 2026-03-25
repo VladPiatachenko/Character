@@ -45,7 +45,7 @@ public class CharacterTest {
         Character TNO = new Character();
         IllegalArgumentException exception= assertThrows(IllegalArgumentException.class,()->{TNO.setExp(-1);});
         assertEquals("Experience can not be negative!",exception.getMessage());
-        assertDoesNotThrow(()->{TNO.setExp(1500);});
+        assertDoesNotThrow(()->{TNO.setExp(2500);});
     }
 
     @Test
