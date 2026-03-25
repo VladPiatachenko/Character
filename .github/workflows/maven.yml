@@ -34,12 +34,34 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-  enable-automerge:
+  promote-to-master:
     needs: build
     runs-on: ubuntu-latest
+    # Виконуємо тільки якщо:
+    # 1) це push (не pull_request)
+    # 2) job build завершилась успішно
+    if: github.event_name == 'push' && needs.build.result == 'success'
 
     steps:
-      - name: Enable auto-merge
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge ${{ github.event.pull_request.number }} --auto --merge
+      - name: Checkout repo with all branches
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # потрібно, щоб були всі гілки, не тільки deploy
+
+      - name: Configure Git user
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge feature -> master (fast-forward only)
+        run: |
+          # Переходимо на гілку render
+          git checkout master
+
+          # Підтягнути останні зміни з origin (про всяк випадок)
+          git fetch origin
+
+          # Зробити fast-forward merge з deploy
+          git merge --ff-only origin/feature-inheritance
+          # Відправити оновлену render назад на GitHub
+          git push origin master
