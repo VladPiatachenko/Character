@@ -5,7 +5,7 @@ import sumdu.edu.ua.dnd.enums.Species;
 
 import java.util.Objects;
 
-public abstract class Character {
+public class Character {
     protected int id;
     protected static int nextid=100;
     protected static int amount=0;
