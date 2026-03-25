@@ -13,7 +13,7 @@ public class Character {
     private int exp;
 
     public Character(){
-        this.id = nextid++;
+        this.id = nextid;
         this.level = 1;
         this.exp = 0;
         amount++;
