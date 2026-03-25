@@ -14,6 +14,10 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build:
 
@@ -29,3 +33,13 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+  enable-automerge:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge ${{ github.event.pull_request.number }} --auto --merge
