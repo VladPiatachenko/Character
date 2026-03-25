@@ -53,7 +53,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Merge feature -> master (fast-forward only)
+      - name: Merge feature_inheritance -> master (fast-forward only)
         run: |
           # Переходимо на гілку render
           git checkout master
@@ -62,6 +62,6 @@ jobs:
           git fetch origin
 
           # Зробити fast-forward merge з deploy
-          git merge --ff-only origin/feature-inheritance
+          git merge --ff-only origin/feature_inheritance 
           # Відправити оновлену render назад на GitHub
           git push origin master
