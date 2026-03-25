@@ -1,4 +1,4 @@
-package sumdu.edu.ua.dnd;
+package sumdu.edu.ua.dnd.enums;
 
 public enum Species {
 
@@ -21,7 +21,7 @@ public enum Species {
             this.id = i;
         }
 
-        void printCreed(){
+        public void printCreed(){
             switch(this.id){
                 case 0: {System.out.println("Aerendil!");break;}
                 case 1: {System.out.println("Elbereth!");break;}

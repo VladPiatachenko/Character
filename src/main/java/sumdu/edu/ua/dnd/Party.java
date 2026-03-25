@@ -1,5 +1,7 @@
 package sumdu.edu.ua.dnd;
 
+import sumdu.edu.ua.dnd.character.Character;
+
 import java.util.ArrayList;
 
 public class Party {
