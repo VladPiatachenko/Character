@@ -1,9 +1,9 @@
 package sumdu.edu.ua;
 
 import org.junit.jupiter.api.Test;
-import sumdu.edu.ua.dnd.character.Character;
-import sumdu.edu.ua.dnd.enums.DnDClass;
-import sumdu.edu.ua.dnd.enums.Species;
+import sumdu.edu.ua.dnd.DnDClass;
+import sumdu.edu.ua.dnd.Character;
+import sumdu.edu.ua.dnd.Species;
 
 import static org.junit.jupiter.api.Assertions.*;
 
