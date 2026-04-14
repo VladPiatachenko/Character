@@ -1,21 +1,35 @@
 package sumdu.edu.ua.dnd.character;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import sumdu.edu.ua.dnd.enums.DnDClass;
 import sumdu.edu.ua.dnd.enums.Species;
 
 import java.util.Objects;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Character.class, name = "character"),
+        @JsonSubTypes.Type(value = Damager.class, name = "damager"),
+        @JsonSubTypes.Type(value = Healer.class, name = "healer"),
+        @JsonSubTypes.Type(value = Taunt.class, name = "taunt")
+})
 public class Character {
     protected int id;
-    protected static int nextid=100;
-    protected static int amount=0;
+    protected static int nextid = 100;
+    protected static int amount = 0;
     protected String name;
     protected DnDClass DNDClass;
     protected Species species;
     protected int level;
     protected int exp;
 
-    public Character(){
+    public Character() {
         this.id = nextid++;
         this.level = 1;
         this.exp = 0;
@@ -24,7 +38,9 @@ public class Character {
 
     public Character(String name) {
         this();
-        if(name.contains("@")){throw new IllegalArgumentException("Name can not be contain @");}
+        if (name.contains("@")) {
+            throw new IllegalArgumentException("Name can not contain @");
+        }
         this.name = name;
     }
 
@@ -34,11 +50,21 @@ public class Character {
         this.species = species;
     }
 
-    public Character(Character old){
+    public Character(Character old) {
         this();
-        this.name=old.name;
-        this.DNDClass=old.DNDClass;
+        this.name = old.name;
+        this.DNDClass = old.DNDClass;
         this.species = old.species;
+        this.level = old.level;
+        this.exp = old.exp;
+    }
+
+    public static void setAmount(int count) {
+        amount = count;
+    }
+
+    public static void setNextid(int i) {
+        nextid = i;
     }
 
     public int getExp() {
@@ -46,7 +72,16 @@ public class Character {
     }
 
     public void setExp(int exp) {
-        if(exp<0){throw new IllegalArgumentException("Experience can not be negative!");}
+        if (exp < 0) {
+            throw new IllegalArgumentException("Experience can not be negative!");
+        }
+        this.exp = exp;
+    }
+
+    public void addExp(int exp) {
+        if (exp < 0) {
+            throw new IllegalArgumentException("Experience can not be negative!");
+        }
         this.exp += exp;
     }
 
@@ -75,7 +110,9 @@ public class Character {
     }
 
     public void setName(String name) {
-        if(name.contains("@")){throw new IllegalArgumentException("Name can not be contain @");}
+        if (name.contains("@")) {
+            throw new IllegalArgumentException("Name can not contain @");
+        }
         this.name = name;
     }
 
@@ -83,8 +120,16 @@ public class Character {
         return species;
     }
 
+    public void setSpecies(Species species) {
+        this.species = species;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -92,9 +137,8 @@ public class Character {
         return "Character{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", DNDClass='" + DNDClass.getTitle() + '\'' +
-                ", DC='" + DNDClass.getStat() + '\'' +
-                ", HP='" + DNDClass.getDice() + '\'' +
+                ", DNDClass=" + DNDClass +
+                ", species=" + species +
                 ", level=" + level +
                 ", exp=" + exp +
                 '}';
@@ -102,14 +146,27 @@ public class Character {
 
     @Override
     public boolean equals(Object o) {
-        System.out.println("on object level method");
         if (!(o instanceof Character character)) return false;
-        return id == character.id && level == character.level && exp == character.exp && Objects.equals(name, character.name) && Objects.equals(DNDClass, character.DNDClass);
+        return id == character.id &&
+                level == character.level &&
+                exp == character.exp &&
+                Objects.equals(name, character.name) &&
+                Objects.equals(DNDClass, character.DNDClass) &&
+                Objects.equals(species, character.species);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, DNDClass, level, exp);
+        return Objects.hash(id, name, DNDClass, species, level, exp);
+    }
+/*
+    public String toJson() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
     }
 
+    public static Character fromJson(String json) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, Character.class);
+    }*/
 }

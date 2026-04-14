@@ -1,7 +1,10 @@
 package sumdu.edu.ua.dnd.enums;
 
 public enum DnDClass {
-    WIZARD("Wizard",6,"INT"),ROGUE("Rogue",8,"DEX"), BARD("Bard",8,"CHA"),BARBARIAN("Barbarian",10,"STR");
+    WIZARD("Wizard",6,"INT"),
+    ROGUE("Rogue",8,"DEX"),
+    BARD("Bard",8,"CHA"),
+    BARBARIAN("Barbarian",10,"STR");
 
     private final String title;
     private final int dice;
