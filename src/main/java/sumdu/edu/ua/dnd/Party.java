@@ -3,6 +3,8 @@ package sumdu.edu.ua.dnd;
 import sumdu.edu.ua.dnd.character.Character;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Party {
     private ArrayList<Character> party = new ArrayList<>();
@@ -19,7 +21,11 @@ public class Party {
     }
 
     public void addCharacter(Character c) {
-        party.add(c);
+        if(containsCharacter(c)){
+            System.out.println(c.toString()+"is already in list");
+            return;}
+        else{
+        party.add(c);}
     }
 
     public Character getCharacterById(int id) {
@@ -38,5 +44,27 @@ public class Party {
                 c.getSpecies().printCreed();
             }
         }
+    }
+    public void printSortedCharacters() {
+        if (party.isEmpty()) {
+            System.out.println("Список персонажів порожній.");
+            return;
+        }
+
+        List<Character> sorted = new ArrayList<>(party);
+        Collections.sort(sorted);
+
+        for (Character character : sorted) {
+            System.out.println(character);
+        }
+    }
+    private boolean containsCharacter(Character c) {
+        for(Character cl: party) {
+            if (cl.equals(c)) {
+                return true;
+            }
+        }
+        return false;
+        //return party.contains(c);
     }
 }

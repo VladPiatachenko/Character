@@ -1,5 +1,8 @@
 package sumdu.edu.ua.dnd.character;
 
+import sumdu.edu.ua.dnd.enums.DnDClass;
+import sumdu.edu.ua.dnd.enums.Species;
+
 import java.util.Objects;
 
 public class Damager extends Character{
@@ -7,6 +10,10 @@ public class Damager extends Character{
     private double critChance;
 
     public Damager() {
+    }
+
+    public Damager(String name, DnDClass dnDClass, Species species) {
+        super(name,dnDClass, species);
     }
 
     public int getDamage() {

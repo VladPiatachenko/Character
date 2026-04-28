@@ -1,5 +1,8 @@
 package sumdu.edu.ua.dnd.character;
 
+import sumdu.edu.ua.dnd.enums.DnDClass;
+import sumdu.edu.ua.dnd.enums.Species;
+
 import java.util.Objects;
 
 public class Healer extends Character{
@@ -15,6 +18,10 @@ public class Healer extends Character{
     }
     public Healer (Character character){
         super(character);
+    }
+
+    public Healer(String name, DnDClass dnDClass, Species species) {
+        super(name,dnDClass, species);
     }
 
     @Override

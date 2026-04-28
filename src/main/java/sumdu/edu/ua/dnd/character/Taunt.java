@@ -1,5 +1,8 @@
 package sumdu.edu.ua.dnd.character;
 
+import sumdu.edu.ua.dnd.enums.DnDClass;
+import sumdu.edu.ua.dnd.enums.Species;
+
 public class Taunt extends Character{
 
     private int armor;
@@ -14,6 +17,10 @@ public class Taunt extends Character{
 
     public Taunt(Character character){
         super(character);
+    }
+
+    public Taunt(String name, DnDClass dnDClass, Species species) {
+        super(name, dnDClass, species);
     }
 
     public int getArmor() {

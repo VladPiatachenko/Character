@@ -19,7 +19,7 @@ import java.util.Objects;
         @JsonSubTypes.Type(value = Healer.class, name = "healer"),
         @JsonSubTypes.Type(value = Taunt.class, name = "taunt")
 })
-public class Character {
+public abstract class Character implements Comparable<Character>{
     protected int id;
     protected static int nextid = 100;
     protected static int amount = 0;
@@ -28,6 +28,30 @@ public class Character {
     protected Species species;
     protected int level;
     protected int exp;
+
+    @Override
+    public int compareTo(Character other) {
+        if (other == null) {
+            return 1;
+        }
+
+        if (this.name == null && other.name == null) {
+            return Integer.compare(this.id, other.id);
+        }
+        if (this.name == null) {
+            return -1;
+        }
+        if (other.name == null) {
+            return 1;
+        }
+
+        int byName = this.name.compareToIgnoreCase(other.name);
+        if (byName != 0) {
+            return byName;
+        }
+
+        return Integer.compare(this.id, other.id);
+    }
 
     public Character() {
         this.id = nextid++;

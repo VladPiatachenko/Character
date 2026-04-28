@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class CharacterRepository {
     private final DatabaseManager databaseManager;
@@ -68,8 +69,24 @@ public class CharacterRepository {
             while (resultSet.next()) {
                 Character character = mapRow(resultSet);
                 System.out.println(character);
+                Character.setNextid(character.getId()+1);
             }
         }
+    }
+    public ArrayList<Character> getAllCharactersStatement() throws SQLException {
+        String sql = "SELECT * FROM characters";
+        ArrayList<Character> enlisted=new ArrayList<>();
+        try (Connection connection = databaseManager.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                Character character = mapRow(resultSet);
+               enlisted.add(character);
+                Character.setNextid(character.getId()+1);
+            }
+        }
+        return enlisted;
     }
 
     public void updateNamePrepared(int id, String newName) throws SQLException {
@@ -132,7 +149,7 @@ public class CharacterRepository {
         } else if ("Taunt".equalsIgnoreCase(type)) {
             character = new Taunt();
         } else {
-            character = new Character();
+            throw new IllegalArgumentException("Unknown character type: " + type);
         }
 
         character.setId(resultSet.getInt("id"));
